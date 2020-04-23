@@ -87,3 +87,7 @@ Please use this reference:
 ```latex
 TODO
 ```
+
+## Licence
+
+This work is under MIT licence (https://choosealicense.com/licenses/mit/). It is a short and simple very permissive license with conditions only requiring preservation of copyright and license notices. Licensed works, modifications, and larger works may be distributed under different terms and without source code. 
