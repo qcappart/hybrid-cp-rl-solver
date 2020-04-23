@@ -25,6 +25,26 @@ This repository contains the implementation of the paper (xxx). For each problem
 *  Two CP solving algorithms leveraging the learned models: Iterative Limited Discrepancy Search (I-LDS) and Restart Based Search (RBS)
 *  A random instance generators for training the model and evaluating the solver.
 
+## Overview of the repository
+
+```bash
+.
+├── conda_env.yml  # configuration file for the conda environment
+├── trained_models/  # directory where the models that you train will be saved
+├── selected_models/  # models that we used for our experiments
+└── src/ 
+	├── architecture/ # implementation of the NN used
+  ├── util/  #  utilitary code (as the memory replay)
+	├── problem/  # problems that we have implemented
+        └── tsptw/ 
+              ├── environment/ # DP model of the problem and the RL environment
+              ├── training/  # PPO and DQN training algorithms
+              ├── solving/  # CP model and solving algorithm
+        ├── ...      
+```
+
+
+
 ## Technologies and tools used
 
 * The code, at the exception of the CP model, is implemented in Python 3.6.
