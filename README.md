@@ -25,25 +25,49 @@ This repository contains the implementation of the paper (xxx). For each problem
 *  Two CP solving algorithms leveraging the learned models: Iterative Limited Discrepancy Search (I-LDS) and Restart Based Search (RBS)
 *  A random instance generators for training the model and evaluating the solver.
 
-## Overview of the repository
-
 ```bash
 .
 ├── conda_env.yml  # configuration file for the conda environment
+├── main_training_x_y.py  # main file for training a model for the problem y using algorithm x
+├── run_training_x_y.sh  # script for running the training. It is where you have to enter the parameters 
 ├── trained_models/  # directory where the models that you train will be saved
 ├── selected_models/  # models that we used for our experiments
 └── src/ 
 	├── architecture/ # implementation of the NN used
-  ├── util/  #  utilitary code (as the memory replay)
+        ├── util/  #  utilitary code (as the memory replay)
 	├── problem/  # problems that we have implemented
         └── tsptw/ 
-              ├── environment/ # DP model of the problem and the RL environment
+              ├── environment/ # the generator, and the DP model, acting also as the RL environment
               ├── training/  # PPO and DQN training algorithms
               ├── solving/  # CP model and solving algorithm
         ├── ...      
 ```
+## Installation Instructions
 
+### 1. Importing the repository
 
+```shell
+git clone https://github.com/qcappart/dp-solver.git
+```
+### 2. Setting up the conda virtual environment
+
+```shell
+conda env create -f conda_env.yml 
+```
+### 3. Building Gecode
+
+TODO
+
+## Basic use
+
+### 1. Training a model
+
+```shell
+./run_training_ppo_tsptw.sh
+```
+### 2. Solving the problem
+
+TODO
 
 ## Technologies and tools used
 
@@ -54,10 +78,12 @@ This repository contains the implementation of the paper (xxx). For each problem
 
 ## Current implemented problems
 
-This list recaps the problems that are currently handled by our method.
+At the moment, only the TSPTW problem is present in this repository. However, we also have the TSP, the 0/1 Knapsack problem, and a nonlinear portfolio optimization problem available, but in non-cleaned code. If there is demand for these problems, I will clean the code and add them in this repository. Feel free to open an issue for that.
 
--  ![Alt text](http://progressed.io/bar/100)  Maximum Independent Set Problem (MISP).
--  ![Alt text](http://progressed.io/bar/100)  Maximum Cut Problem (Maxcut) - Performances can be improved.
--  ![Alt text](http://progressed.io/bar/50)  Knapsack - In progress.
+## Cite
 
-Basically, adding a new problem requires only to implement the related DD construction and build the RL environment.
+Please use this reference:
+
+```latex
+TODO
+```
