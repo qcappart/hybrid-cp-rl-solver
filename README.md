@@ -36,11 +36,11 @@ This repository contains the implementation of the paper (xxx). For each problem
 	├── architecture/ # implementation of the NN used
         ├── util/  #  utilitary code (as the memory replay)
 	├── problem/  # problems that we have implemented
-        └── tsptw/ 
-              ├── environment/ # the generator, and the DP model, acting also as the RL environment
-              ├── training/  # PPO and DQN training algorithms
-              ├── solving/  # CP model and solving algorithm
-        ├── ...      
+		└── tsptw/ 
+		      ├── environment/ # the generator, and the DP model, acting also as the RL environment
+		      ├── training/  # PPO and DQN training algorithms
+		      ├── solving/  # CP model and solving algorithm
+		├── ...      
 ```
 ## Installation Instructions
 
