@@ -11,13 +11,15 @@ from src.problem.tsptw.learning.actor_critic import ActorCritic
 
 class BrainPPO:
     """
-    Initialization of the PPO Brain, computing the PPO loss.
-    :param args: argparse object taking hyperparameters.
-    :param num_node_feat: number of features on the nodes
-    :param num_edge_feat: numer of features on the edges
+    Definition of the PPO Brain, computing the DQN loss
     """
     def __init__(self, args, num_node_feat, num_edge_feat):
-
+        """
+        Initialize the PPO Brain
+        :param args: argparse object taking hyperparameters
+        :param num_node_feat: number of features on the nodes
+        :param num_edge_feat: number of features on the edges
+        """
         self.args = args
         self.policy = ActorCritic(self.args, num_node_feat, num_edge_feat)
         self.policy_old = ActorCritic(self.args, num_node_feat, num_edge_feat)
@@ -106,6 +108,7 @@ class BrainPPO:
         :param folder: Folder requested
         :param filename: file name requested
         """
+
         filepath = os.path.join(folder, filename)
 
         if not os.path.exists(folder):

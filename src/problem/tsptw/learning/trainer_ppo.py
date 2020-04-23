@@ -15,7 +15,7 @@ from src.problem.tsptw.environment.environment import Environment
 from src.problem.tsptw.learning.brain_ppo import BrainPPO
 from src.util.replay_memory import ReplayMemory
 
-#  Definition of constants
+#  definition of constants
 VALIDATION_SET_SIZE = 100
 RANDOM_TRIAL = 100
 MIN_VAL = -1000000
@@ -34,9 +34,7 @@ class TrainerPPO:
         """
 
         self.args = args
-
         np.random.seed(self.args.seed)
-
         self.num_node_feats = 6
         self.num_edge_feats = 5
 
@@ -45,7 +43,10 @@ class TrainerPPO:
         self.max_tw_size = 100
         self.reward_scaling = 0.001
 
-        self.validation_set = self.generate_dataset(VALIDATION_SET_SIZE, np.random.randint(10000))
+        self.validation_set = TSPTW.generate_dataset(size=VALIDATION_SET_SIZE, n_city=self.args.n_city,
+                                                     grid_size=self.grid_size, max_tw_gap=self.max_tw_gap,
+                                                     max_tw_size=self.max_tw_size, is_integer_instance=False,
+                                                     seed=np.random.randint(10000))
 
         self.brain = BrainPPO(self.args, self.num_node_feats, self.num_edge_feats)
 
@@ -183,20 +184,3 @@ class TrainerPPO:
 
         return total_reward
 
-    def generate_dataset(self, size, seed):
-        """
-        Generate a dataset of instance
-        :param size: the size of the data set
-        :param seed: the seed used for generating the instance
-        :return: the dataset created
-        """
-
-        dataset = []
-        for i in range(size):
-            new_instance = TSPTW.generate_random_instance(n_city=self.args.n_city, grid_size=self.grid_size,
-                                                          max_tw_gap=self.max_tw_gap, max_tw_size=self.max_tw_size,
-                                                          seed=seed, is_integer_instance=False)
-            dataset.append(new_instance)
-            seed += 1
-
-        return dataset
