@@ -42,7 +42,7 @@ This repository contains the implementation of the paper (xxx). For each problem
 		      ├── solving/  # CP model and solving algorithm
 		├── ...      
 ```
-## Installation Instructions
+## Installation instructions
 
 ### 1. Importing the repository
 
