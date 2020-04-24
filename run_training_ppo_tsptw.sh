@@ -10,14 +10,14 @@ max_tw_gap=10
 max_tw_size=100
 
 # Parameters for the training
-k_epochs=4
-update_timestep=64
+k_epochs=3
+update_timestep=2048
 learning_rate=0.0001
 entropy_value=0.001
 eps_clip=0.1
-batch_size=32 # batch size must be a divisor of update_timestep
-latent_dim=64
-hidden_layer=3
+batch_size=64 # batch size must be a divisor of update_timestep
+latent_dim=128
+hidden_layer=4
 
 # Others
 plot_training=1 # Boolean value: plot the training curve or not

@@ -10,9 +10,9 @@ max_tw_gap=10
 max_tw_size=100
 
 # Parameters for the training
-batch_size=16 # max batch size for training/testing
-hidden_layer=4 # number of hidden layer
-latent_dim=128
+batch_size=32 # max batch size for training/testing
+hidden_layer=2 # number of hidden layer
+latent_dim=32
 learning_rate=0.0001
 n_step=-1
 max_softmax_beta=10
