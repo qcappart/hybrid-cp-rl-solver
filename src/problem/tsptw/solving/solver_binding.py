@@ -1,5 +1,4 @@
 
-import argparse
 import torch
 import dgl
 import numpy as np
@@ -9,8 +8,22 @@ from src.problem.tsptw.environment.tsptw import TSPTW
 from src.problem.tsptw.learning.actor_critic import ActorCritic
 from src.architecture.graph_attention_network import GATNetwork
 
-class ToRunTSPTW(object):
+class SolverBinding(object):
+    """
+    Definition of the c++ and the pytorch model.
+    """
+
     def __init__(self, load_folder, n_city, grid_size, max_tw_gap, max_tw_size, seed, algorithm):
+        """
+        Initialization of the binding
+        :param load_folder: folder where the pytorch model (.pth.tar) is saved
+        :param n_city: number of cities of the instance
+        :param grid_size: x-pos/y-pos of cities will be in the range [0, grid_size]
+        :param max_tw_gap: maximum time windows gap allowed between the cities
+        :param max_tw_size: time windows of cities will be in the range [0, max_tw_size
+        :param seed: seed used for generaing the instance
+        :param algorithm: 'ppo' or 'dqn'
+        """
 
         self.n_city = n_city
         self.grid_size = grid_size
@@ -31,7 +44,7 @@ class ToRunTSPTW(object):
 
         self.edge_feat_tensor = self.instance.get_edge_feat_tensor(self.max_dist)
 
-        self.input_graph = self.build_graph()
+        self.input_graph = self.initialize_graph()
 
         if self.algorithm == "dqn":
 
@@ -58,12 +71,26 @@ class ToRunTSPTW(object):
             raise Exception("RL algorithm not implemented")
 
     def get_travel_time_matrix(self):
+        """
+        Return the travel time/distance matrix (used in the c++ code)
+        :return: The travel time matrix
+        """
         return self.instance.travel_time
 
     def get_time_windows_matrix(self):
+        """
+        Return the time windows matrix (used in the c++ code)
+        :return: the time windows matrix
+        """
+
         return self.instance.time_windows
 
-    def build_graph(self):
+    def initialize_graph(self):
+        """
+        Return and initialize a graph corresponding to the first state of the DP model.
+        :return: the graph
+        """
+
         g = dgl.DGLGraph()
         g.from_networkx(self.instance.graph)
 
@@ -84,6 +111,10 @@ class ToRunTSPTW(object):
         return batched_graph
 
     def find_model(self):
+        """
+        Find and return the .pth.tar model for the corresponding instance type.
+        :return: the location of the model and some hyperparameters used
+        """
 
         log_file_path = self.load_folder + "/log-training.txt"
         best_reward = 0
@@ -118,6 +149,12 @@ class ToRunTSPTW(object):
 
 
     def predict_dqn(self, non_fixed_variables, last_visited):
+        """
+        Given the state related to a node in the CP search, compute the Q-value prediction
+        :param non_fixed_variables: variables that are not yet fixed (i.e., must_visit)
+        :param last_visited: the last city visited
+        :return: the Q-value prediction
+        """
 
         self.update_graph_state(non_fixed_variables, last_visited)
         y_pred = self.model(self.input_graph, graph_pooling=False)
@@ -127,6 +164,13 @@ class ToRunTSPTW(object):
         return y_pred_list
 
     def predict_ppo(self, non_fixed_variables, last_visited, temperature):
+        """
+        Given the state related to a node in the CP search, compute the PPO prediction
+        :param non_fixed_variables: variables that are not yet fixed (i.e., must_visit)
+        :param last_visited: the last city visited
+        :param temperature: the softmax temperature for favoring the exploration
+        :return: a vector of probabilities of selecting an action
+        """
 
         self.update_graph_state(non_fixed_variables, last_visited)
         y_pred = self.model(self.input_graph, graph_pooling=False)
@@ -146,6 +190,12 @@ class ToRunTSPTW(object):
         return y_pred_list
 
     def update_graph_state(self, non_fixed_variables, last_visited):
+        """
+        Update the graph state according to the current state. Must be consistent with the RL environment.
+        Especially, mind the normalization constants.
+        :param non_fixed_variables: variables that are not yet fixed (i.e., must_visit)
+        :param last_visited: the last city visited
+        """
 
         node_feat = [[self.instance.x_coord[i] / self.grid_size,
                       self.instance.y_coord[i] / self.grid_size,
