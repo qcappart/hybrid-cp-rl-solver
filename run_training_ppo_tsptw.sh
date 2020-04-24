@@ -4,7 +4,7 @@
 seed=1
 
 # Characterics of the training instances
-n_city=10
+n_city=20
 grid_size=100
 max_tw_gap=10
 max_tw_size=100
