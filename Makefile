@@ -1,5 +1,5 @@
 
-PYTHON_PATH=/Users/quentin/opt/miniconda3/envs/dp-solver-env/bin/python3.7
+PYTHON_PATH=~/opt/miniconda3/envs/dp-solver-env/bin/python3.7
 
 tsptw:
 	rm -rf src/problem/tsptw/solving/build
