@@ -9,7 +9,6 @@ import sys
 
 import numpy as np
 
-
 import dgl
 
 from src.problem.tsptw.environment.environment import Environment
@@ -48,14 +47,11 @@ class TrainerDQN:
         self.num_node_feats = 6
         self.num_edge_feats = 5
 
-        self.grid_size = 100
-        self.max_tw_gap = 10
-        self.max_tw_size = 100
         self.reward_scaling = 0.001
 
         self.validation_set = TSPTW.generate_dataset(size=VALIDATION_SET_SIZE, n_city=self.args.n_city,
-                                                     grid_size=self.grid_size, max_tw_gap=self.max_tw_gap,
-                                                     max_tw_size=self.max_tw_size, is_integer_instance=False,
+                                                     grid_size=self.args.grid_size, max_tw_gap=self.args.max_tw_gap,
+                                                     max_tw_size=self.args.max_tw_size, is_integer_instance=False,
                                                      seed=np.random.randint(10000))
 
         self.brain = BrainDQN(self.args, self.num_node_feats, self.num_edge_feats)
@@ -68,6 +64,12 @@ class TrainerDQN:
             self.n_step = self.n_action
         else:
             self.n_step = self.args.n_step
+
+        print("***********************************************************")
+        print("[INFO] NUMBER OF FEATURES")
+        print("[INFO] n_node_feat: %d" % self.num_node_feats)
+        print("[INFO] n_edge_feat: %d" % self.num_edge_feats)
+        print("***********************************************************")
 
     def run_training(self):
         """
@@ -146,12 +148,12 @@ class TrainerDQN:
         """
 
         #  Generate a random instance
-        instance = TSPTW.generate_random_instance(n_city=self.args.n_city, grid_size=self.grid_size,
-                                                  max_tw_gap=self.max_tw_gap, max_tw_size=self.max_tw_size,
+        instance = TSPTW.generate_random_instance(n_city=self.args.n_city, grid_size=self.args.grid_size,
+                                                  max_tw_gap=self.args.max_tw_gap, max_tw_size=self.args.max_tw_size,
                                                   seed=-1, is_integer_instance=False)
 
         env = Environment(instance, self.num_node_feats, self.num_edge_feats, self.reward_scaling,
-                          self.grid_size, self.max_tw_gap, self.max_tw_size)
+                          self.args.grid_size, self.args.max_tw_gap, self.args.max_tw_size)
 
         cur_state = env.get_initial_environment()
 
@@ -249,7 +251,7 @@ class TrainerDQN:
 
         instance = self.validation_set[idx]
         env = Environment(instance, self.num_node_feats, self.num_edge_feats, self.reward_scaling,
-                          self.grid_size, self.max_tw_gap, self.max_tw_size)
+                          self.args.grid_size, self.args.max_tw_gap, self.args.max_tw_size)
         cur_state = env.get_initial_environment()
 
         total_reward = 0

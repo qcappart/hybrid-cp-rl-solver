@@ -4,7 +4,10 @@
 seed=1
 
 # Characterics of the training instances
-n_city=10
+n_city=20
+grid_size=100
+max_tw_gap=10
+max_tw_size=100
 
 # Parameters for the training
 batch_size=16 # max batch size for training/testing
@@ -20,7 +23,7 @@ mode=cpu
 
 # Folder to save the trained model
 network_arch=hidden_layer-$hidden_layer-latent_dim-$latent_dim/
-result_root=trained_models/dqn/tsptw/n-city-$n_city/seed-$seed/$network_arch
+result_root=trained-models/dqn/tsptw/n-city-$n_city/grid-$grid_size-tw-$max_tw_gap-$max_tw_size/seed-$seed/$network_arch
 save_dir=$result_root/batch_size-$batch_size-learning_rate-$learning_rate-n_step-$n_step-max_softmax_beta-$max_softmax_beta
 
 
@@ -32,6 +35,9 @@ fi
 python main_training_dqn_tsptw.py \
     --seed $seed  \
     --n_city $n_city  \
+    --grid_size $grid_size \
+    --max_tw_gap $max_tw_gap \
+    --max_tw_size $max_tw_size \
     --batch_size $batch_size  \
     --hidden_layer $hidden_layer  \
     --latent_dim $latent_dim  \

@@ -2,6 +2,7 @@ import networkx as nx
 import random
 import heapq
 import numpy as np
+import torch
 
 class TSPTW:
 
@@ -57,6 +58,26 @@ class TSPTW:
         assert g.number_of_nodes() == self.n_city
 
         return g
+
+    def get_edge_feat_tensor(self, max_dist):
+        """
+        Return a tensor of the edges features.
+        As the features for the edges are not state-dependent, we can pre-compute them
+        :param max_dist: the maximum_distance possible given the grid-size
+        :return: a torch tensor of the features
+        """
+
+        edge_feat = [[e[2]["weight"] / max_dist,
+                      e[2]["is_k_neigh_1"],
+                      e[2]["is_k_neigh_5"],
+                      e[2]["is_k_neigh_10"],
+                      e[2]["is_k_neigh_20"]]
+                     for e in self.graph.edges(data=True)]
+
+        edge_feat_tensor = torch.FloatTensor(edge_feat)
+
+        return edge_feat_tensor
+
 
     @staticmethod
     def generate_random_instance(n_city, grid_size, max_tw_gap, max_tw_size,

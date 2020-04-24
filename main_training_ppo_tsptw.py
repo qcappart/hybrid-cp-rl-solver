@@ -13,8 +13,13 @@ def parse_arguments():
 
     # Instances parameters
     parser.add_argument('--n_city', type=int, default=20)
-    parser.add_argument('--mode', default='cpu', help='cpu/gpu')
+    parser.add_argument('--grid_size', type=int, default=100)
+    parser.add_argument('--max_tw_gap', type=int, default=10)
+    parser.add_argument('--max_tw_size', type=int, default=100)
     parser.add_argument('--seed', type=int, default=1)
+
+
+    # Hyper parameters
     parser.add_argument('--n_episode', type=int, default=1000000)
     parser.add_argument('--learning_rate', type=float, default=0.002)
     parser.add_argument('--update_timestep', type=int, default=2000)
@@ -28,6 +33,7 @@ def parse_arguments():
     # Argument for Trainer
     parser.add_argument('--save_dir', type=str, default='./result-default')
     parser.add_argument('--plot_training', type=int, default=1)
+    parser.add_argument('--mode', default='cpu', help='cpu/gpu')
 
     return parser.parse_args()
 
@@ -38,7 +44,10 @@ if __name__ == '__main__':
 
     print("***********************************************************")
     print("[INFO] TRAINING ON RANDOM INSTANCES: TSPTW")
-    print("[INFO] Number of cities: %d" % args.n_city)
+    print("[INFO] n_city: %d" % args.n_city)
+    print("[INFO] grid_size: %d" % args.grid_size)
+    print("[INFO] max_tw_gap: %d" % args.max_tw_gap)
+    print("[INFO] max_tw_size: %d" % args.max_tw_size)
     print("***********************************************************")
     print("[INFO] TRAINING PARAMETERS")
     print("[INFO] Algorithm: PPO")

@@ -30,15 +30,7 @@ class Environment:
         self.max_dist = np.sqrt(self.grid_size ** 2 + self.grid_size ** 2)
         self.max_tw_value = (self.instance.n_city - 1) * (self.max_tw_size + self.max_tw_gap)
 
-        # as the features for the edges are not state-dependent, we can pre-compute them
-        edge_feat = [[e[2]["weight"] / self.max_dist,
-                      e[2]["is_k_neigh_1"],
-                      e[2]["is_k_neigh_5"],
-                      e[2]["is_k_neigh_10"],
-                      e[2]["is_k_neigh_20"]]
-                     for e in self.instance.graph.edges(data=True)]
-
-        self.edge_feat_tensor = torch.FloatTensor(edge_feat).reshape(self.instance.graph.number_of_edges(), self.n_edge_feat)
+        self.edge_feat_tensor = self.instance.get_edge_feat_tensor(self.max_dist)
 
     def get_initial_environment(self):
         """
