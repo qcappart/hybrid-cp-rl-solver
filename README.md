@@ -56,7 +56,16 @@ conda env create -f conda_env.yml
 ```
 ### 3. Building Gecode
 
-TODO
+Please refer to the setup instructions available on the [official website](https://www.gecode.org/).
+
+### 4. Compiling the solver
+
+A makefile is available in the root repository. First, modify it by adding your python path. Then, you can compile the project as follows:
+
+```shell
+make [problem] # e.g. [problem] -> tsptw
+```
+It will create the executable ```solver_tsptw```.
 
 ## Basic use
 
@@ -67,8 +76,16 @@ TODO
 ```
 ### 2. Solving the problem
 
-TODO
+```shell
+./solver_tsptw --model=rl-dqn --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --d_l=5000 --cache=1 # Solve with ILDS-DQN
+./solver_tsptw --model=rl-ppo --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --cache=1 --luby=1 --temperature=1 # Solve with RBS-PPO
+./solver_tsptw --model=nearest --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --d_l=5000 # Solve with a nearest neigbour heuristic (no learning)
+```
+For learning based methods, the model selected by default is the one located in the corresponding ```selected_model/``` repository. For instance:
 
+```shell
+selected-models/ppo/tsptw/n-city-20/grid-100-tw-10-100/ 
+```
 ## Technologies and tools used
 
 * The code, at the exception of the CP model, is implemented in Python 3.6.
