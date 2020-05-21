@@ -81,15 +81,15 @@ class TSPTW:
 
     @staticmethod
     def generate_random_instance(n_city, grid_size, max_tw_gap, max_tw_size,
-                                 seed, is_integer_instance):
+                                 is_integer_instance, seed):
         """
         :param n_city: number of cities
         :param grid_size: x-pos/y-pos of cities will be in the range [0, grid_size]
-        :param max_tw_gap: maximum time windows gap allowed between the cities constituing the feasible tour.
+        :param max_tw_gap: maximum time windows gap allowed between the cities constituing the feasible tour
         :param max_tw_size: time windows of cities will be in the range [0, max_tw_size]
-        :param seed: seed used for generating the instance. -1 means no seed (instance is random)
         :param is_integer_instance: True if we want the distances and time widows to have integer values
-        :return: a feasible TSPTW instance randomly generated using the parameters.
+        :param seed: seed used for generating the instance. -1 means no seed (instance is random)
+        :return: a feasible TSPTW instance randomly generated using the parameters
         """
 
         rand = random.Random()
@@ -145,20 +145,20 @@ class TSPTW:
         """
         Generate a dataset of instance
         :param size: the size of the data set
-        :param seed: the seed used for generating the instance
         :param n_city: number of cities
         :param grid_size: x-pos/y-pos of cities will be in the range [0, grid_size]
-        :param max_tw_gap: maximum time windows gap allowed between the cities constituing the feasible tour.
+        :param max_tw_gap: maximum time windows gap allowed between the cities constituing the feasible tour
         :param max_tw_size: time windows of cities will be in the range [0, max_tw_size]
         :param is_integer_instance: True if we want the distances and time widows to have integer values
-        :return: a dataset of '#size' feasible TSPTW instance randomly generated using the parameters.
+        :param seed: the seed used for generating the instance
+        :return: a dataset of '#size' feasible TSPTW instance randomly generated using the parameters
         """
 
         dataset = []
         for i in range(size):
             new_instance = TSPTW.generate_random_instance(n_city=n_city, grid_size=grid_size,
                                                           max_tw_gap=max_tw_gap, max_tw_size=max_tw_size,
-                                                          seed=seed, is_integer_instance=is_integer_instance)
+                                                          is_integer_instance=is_integer_instance, seed=seed)
             dataset.append(new_instance)
             seed += 1
 

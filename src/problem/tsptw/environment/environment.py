@@ -81,7 +81,7 @@ class Environment:
         Compute the next_state and the reward of the RL environment from cur_state when an action is done
         :param cur_state: the current state
         :param action: the action that is done
-        :return:
+        :return: the next state and the reward collected
         """
 
         new_state = cur_state.step(action)

@@ -3,7 +3,7 @@
 class State:
     def __init__(self, instance, must_visit, last_visited, cur_time, tour):
         """
-        Build a State.
+        Build a State
         Note that the set of valid actions correspond to the must_visit part of the state
         :param instance: the problem instance considered
         :param must_visit: cities that still have to be visited.

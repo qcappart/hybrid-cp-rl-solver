@@ -69,7 +69,7 @@ private:
 
 public:
 
-    enum ModelType {RL_DQN, RL_PPO, NN_HEURISTIC};
+    enum ModelType {RL_BAB, RL_DQN, RL_PPO, NN_HEURISTIC};
 
     /* Constructor */
     TSPTW_DP(const OptionsTSPTW& opt): IntMinimizeScript(opt), tour_cost(*this, 0, 100000) {
@@ -83,7 +83,7 @@ public:
 
         string mode = "";
 
-        if (opt.model() == RL_DQN || opt.model() == NN_HEURISTIC) {
+        if (opt.model() == RL_DQN || opt.model() == RL_BAB || opt.model() == NN_HEURISTIC) {
             mode = "dqn";
         }
 
@@ -169,6 +169,9 @@ public:
         switch (opt.model()) {
 
             case RL_DQN:
+                branch(*this, travel_to, INT_VAR_NONE(), INT_VAL(&value_selector));
+                break;
+            case RL_BAB:
                 branch(*this, travel_to, INT_VAR_NONE(), INT_VAL(&value_selector));
                 break;
             case NN_HEURISTIC:
@@ -447,8 +450,9 @@ public:
 
 
 TSPTW_DP::ModelType stringToModel (std::string const& inString) {
-    if (inString == "rl-dqn") return TSPTW_DP::RL_DQN;
-    if (inString == "rl-ppo") return TSPTW_DP::RL_PPO;
+    if (inString == "rl-bab-dqn") return TSPTW_DP::RL_BAB;
+    if (inString == "rl-ilds-dqn") return TSPTW_DP::RL_DQN;
+    if (inString == "rl-rbs-ppo") return TSPTW_DP::RL_PPO;
     if (inString == "nearest") return TSPTW_DP::NN_HEURISTIC;
     throw cxxopts::OptionException("Invalid model argument");
 }
@@ -483,10 +487,10 @@ int main(int argc, char* argv[]) {
                         result["temperature"].as<float>(),
                         result["dominance"].as<bool>()
                         );
-
-    opt.model(TSPTW_DP::RL_DQN, "rl-dqn", "use DQN algorithm");
-    opt.model(TSPTW_DP::RL_PPO, "rl-ppo", "use RL with PPO (implies restarts)");
-    opt.model(TSPTW_DP::NN_HEURISTIC, "nearest", "use NN heuristic");
+    opt.model(TSPTW_DP::RL_BAB, "rl-bab-dqn", "use RL with BAB and DQN");
+    opt.model(TSPTW_DP::RL_DQN, "rl-ilds-dqn", "use RL with ILDS and DQN");
+    opt.model(TSPTW_DP::RL_PPO, "rl-rbs-ppo", "use RL with RBS and PPO (implies restarts)");
+    opt.model(TSPTW_DP::NN_HEURISTIC, "nearest", "use nearest heuristic with ILDS");
     // TODO switch case on the model?
     opt.model(stringToModel(result["model"].as<string>()));
 
@@ -529,6 +533,42 @@ int main(int argc, char* argv[]) {
             cout << "FOUND OPTIMAL" << endl;
         }
     }
+
+
+     else if(opt.model() == TSPTW_DP::RL_BAB) {
+        Search::Options o;
+        Search::TimeStop ts(opt.time());
+        o.stop = &ts;
+        TSPTW_DP* p = new TSPTW_DP(opt);
+        o.d_l = opt.d_l();
+        o.tracer = tracer;
+        BAB<TSPTW_DP> engine(p, o);
+        delete p;
+        cout << "nb_cities,seed,time,tour_cost,depth" << std::endl;
+        while(TSPTW_DP* p = engine.next()) {
+            int cur_cost = p->cost().val();
+            if(cur_cost < best_cost) {
+                best_cost = cur_cost;
+                int depth = engine.statistics().depth;
+                cout << p->to_string() << "," << depth << endl ;
+            }
+            delete p;
+        }
+
+        std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
+        int elapsed_seconds = std::chrono::duration_cast<std::chrono::milliseconds> (end-start).count();
+        cout << elapsed_seconds << "ms" << endl;
+        cout << "max-depth reached: " << engine.statistics().depth << endl;
+
+        if(engine.stopped()){
+            cout << "TIMEOUT" << endl;
+        }
+        else{
+            cout << "FOUND OPTIMAL" << endl;
+        }
+    }
+
+
     else if(opt.model() == TSPTW_DP::RL_PPO) {
         Search::Options o;
 
