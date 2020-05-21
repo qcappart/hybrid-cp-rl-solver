@@ -77,8 +77,9 @@ It will create the executable ```solver_tsptw```.
 ### 2. Solving the problem
 
 ```shell
-./solver_tsptw --model=rl-dqn --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --d_l=5000 --cache=1 # Solve with ILDS-DQN
-./solver_tsptw --model=rl-ppo --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --cache=1 --luby=1 --temperature=1 # Solve with RBS-PPO
+./solver_tsptw --model=rl-ilds-dqn --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --d_l=5000 --cache=1 # Solve with ILDS-DQN
+./solver_tsptw --model=rl-bab-dqn --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --d_l=5000 --cache=1 # Solve with ILDS-DQN
+./solver_tsptw --model=rl-rbs-ppo --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --cache=1 --luby=1 --temperature=1 # Solve with RBS-PPO
 ./solver_tsptw --model=nearest --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --d_l=5000 # Solve with a nearest neigbour heuristic (no learning)
 ```
 For learning based methods, the model selected by default is the one located in the corresponding ```selected_model/``` repository. For instance:
