@@ -25,7 +25,7 @@ mode=cpu
 
 # Folder to save the trained model
 network_arch=hidden_layer-$hidden_layer-latent_dim-$latent_dim/
-result_root=trained-models/ppo/portfolio/n-item-$n_item/capacity_ratio-$capacity_ratio/lambdas-$lambda_1-$lambda_2-$lambda_3-$lambda_4/seed-$seed/$network_arch
+result_root=trained-models/dqn/portfolio/n-item-$n_item/capacity_ratio-$capacity_ratio/lambdas-$lambda_1-$lambda_2-$lambda_3-$lambda_4/seed-$seed/$network_arch
 save_dir=$result_root/batch_size-$batch_size-learning_rate-$learning_rate-n_step-$n_step-max_softmax_beta-$max_softmax_beta
 
 

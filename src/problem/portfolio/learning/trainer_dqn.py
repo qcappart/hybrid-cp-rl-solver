@@ -217,6 +217,9 @@ class TrainerDQN:
                 next_set = torch.FloatTensor(np.zeros((self.args.n_item, self.n_feat)))
                 next_available = env.get_valid_actions(cur_state)
 
+                if self.args.mode == 'gpu':
+                    next_set = next_set.cuda()
+
             #  a state correspond to the graph, with the nodes that we can still visit
             state_features = (cur_set, cur_available)
             next_state_features = (next_set, next_available)
