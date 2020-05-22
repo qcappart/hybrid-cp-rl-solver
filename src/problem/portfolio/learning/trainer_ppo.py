@@ -80,7 +80,7 @@ class TrainerPPO:
 
                 avg_reward = 0.0
                 for j in range(len(self.validation_set)):
-                    avg_reward += self.evaluate_instance(j)
+                    avg_reward += self.evaluate_instance(j) / self.reward_scaling
 
                 avg_reward = avg_reward / len(self.validation_set)
 
