@@ -16,7 +16,7 @@ class ActorCritic(nn.Module):
         """
         Initialization of the actor-critic with two networks (the actor: outputing probabilities of selecting actions,
         and the critic, outputing an approximation of the state)
-        :param args: argparse object taking hyperparameters.
+        :param args: argparse object taking hyperparameters
         :param num_node_feat: number of features on the nodes
         :param num_edge_feat: numer of features on the edges
         """
@@ -39,7 +39,7 @@ class ActorCritic(nn.Module):
 
     def act(self, graph_state, available_tensor):
         """
-        Perform an action following the probabilities outputed by the current actor.
+        Perform an action following the probabilities outputed by the current actor
         :param graph_state: the current state
         :param available_tensor: [0,1]-vector of available actions
         :return: the action selection, its log-probability, and its probability
@@ -97,7 +97,18 @@ class ActorCritic(nn.Module):
         return action_log_probs, torch.squeeze(state_value), dist_entropy
 
     @staticmethod
-    def masked_softmax(vector, mask, dim=-1, memory_efficient=False, mask_fill_value=-1e32, temperature=1):
+    def masked_softmax(vector, mask, dim=-1, temperature=1):
+        """
+        Compute softmax probabilities of a vector having masked values
+        :param vector: vector on which the softmax is computed
+        :param mask: binary mask for each element of the vector
+        :param dim: dimension of the softmax
+        :param temperature: temperature for favoring exploration or not
+        :return: masked softmax values
+        """
+
+        mask_fill_value = -1e32
+        memory_efficient = False
 
         if mask is None:
             result = torch.nn.functional.softmax(vector, dim=dim)

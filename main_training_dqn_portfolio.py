@@ -3,7 +3,7 @@ import sys
 import os
 import argparse
 
-from src.problem.tsptw.learning.trainer_dqn import TrainerDQN
+from src.problem.portfolio.learning.trainer_dqn import TrainerDQN
 
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
@@ -11,11 +11,14 @@ def parse_arguments():
     parser = argparse.ArgumentParser()
 
     # Instances parameters
-    parser.add_argument('--n_city', type=int, default=20)
-    parser.add_argument('--grid_size', type=int, default=100)
-    parser.add_argument('--max_tw_gap', type=int, default=10)
-    parser.add_argument('--max_tw_size', type=int, default=100)
+    parser.add_argument('--n_item', type=int, default=10)
+    parser.add_argument('--capacity_ratio', type=float, default=0.5)
+    parser.add_argument('--lambda_1', type=int, default=1)
+    parser.add_argument('--lambda_2', type=int, default=5)
+    parser.add_argument('--lambda_3', type=int, default=5)
+    parser.add_argument('--lambda_4', type=int, default=5)
     parser.add_argument('--seed', type=int, default=1)
+
 
     # Hyper parameters
     parser.add_argument('--batch_size', type=int, default=32)
@@ -41,11 +44,13 @@ if __name__ == '__main__':
     args = parse_arguments()
 
     print("***********************************************************")
-    print("[INFO] TRAINING ON RANDOM INSTANCES: TSPTW")
-    print("[INFO] n_city: %d" % args.n_city)
-    print("[INFO] grid_size: %d" % args.grid_size)
-    print("[INFO] max_tw_gap: %d" % args.max_tw_gap)
-    print("[INFO] max_tw_size: %d" % args.max_tw_size)
+    print("[INFO] TRAINING ON RANDOM INSTANCES: portfolio")
+    print("[INFO] n_items: %d" % args.n_item)
+    print("[INFO] lambda_1: %d" % args.lambda_1)
+    print("[INFO] lambda_2: %d" % args.lambda_2)
+    print("[INFO] lambda_3: %d" % args.lambda_3)
+    print("[INFO] lambda_4: %d" % args.lambda_4)
+    print("[INFO] capacity_ratio: %f" % args.capacity_ratio)
     print("[INFO] seed: %s" % args.seed)
     print("***********************************************************")
     print("[INFO] TRAINING PARAMETERS")

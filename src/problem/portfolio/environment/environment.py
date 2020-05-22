@@ -1,4 +1,4 @@
-from src.problem.portfolio.environment.tsptw import *
+from src.problem.portfolio.environment.portfolio import *
 from src.problem.portfolio.environment.state import *
 
 import torch
