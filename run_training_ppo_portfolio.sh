@@ -12,14 +12,14 @@ lambda_3=5
 lambda_4=5
 
 # Parameters for the training
-k_epochs=3
+k_epochs=4
 update_timestep=2048
 learning_rate=0.0001
 entropy_value=0.001
 eps_clip=0.1
-batch_size=64 # batch size must be a divisor of update_timestep
+batch_size=128 # batch size must be a divisor of update_timestep
 latent_dim=128
-hidden_layer=4
+hidden_layer=2
 
 # Others
 plot_training=1 # Boolean value: plot the training curve or not

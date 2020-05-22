@@ -12,10 +12,10 @@ lambda_3=5
 lambda_4=5
 
 # Parameters for the training
-batch_size=32 # max batch size for training/testing
+batch_size=64 # max batch size for training/testing
 hidden_layer=2 # number of hidden layer
-latent_dim=32
-learning_rate=0.0001
+latent_dim=128
+learning_rate=0.00001
 n_step=-1
 max_softmax_beta=2
 
