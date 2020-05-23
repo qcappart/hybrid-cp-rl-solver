@@ -16,7 +16,7 @@ from src.problem.portfolio.environment.portfolio import Portfolio
 from src.util.prioritized_replay_memory import PrioritizedReplayMemory
 
 #  definition of constants
-MEMORY_CAPACITY = 50000
+MEMORY_CAPACITY = 500
 GAMMA = 1
 STEP_EPSILON = 5000.0
 UPDATE_TARGET_FREQUENCY = 500
@@ -52,7 +52,6 @@ class TrainerDQN:
                                                          moment_factors=self.moment_factors,
                                                          is_integer_instance=False,
                                                          seed=np.random.randint(10000))
-
         self.brain = BrainDQN(self.args, self.n_feat)
         self.memory = PrioritizedReplayMemory(MEMORY_CAPACITY)
 
@@ -201,7 +200,7 @@ class TrainerDQN:
         episode_last_idx = idx
 
         #  compute the n-step values
-        for i in range(self.n_action):
+        for i in range(self.args.n_item):
 
             if i <= episode_last_idx:
                 cur_set = set_list[i]
@@ -364,7 +363,6 @@ class TrainerDQN:
             q_value_prediction = t[action]
 
             if len(next_action_indices) == 0:
-
                 td_q_value = reward
                 t[action] = td_q_value
 

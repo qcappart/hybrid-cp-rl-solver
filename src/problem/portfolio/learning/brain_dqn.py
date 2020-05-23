@@ -41,6 +41,7 @@ class BrainDQN:
         """
 
         self.model.train()
+
         set_input, _ = list(zip(*x))
         batched_set = torch.stack(set_input)
 
@@ -66,6 +67,7 @@ class BrainDQN:
         """
 
         with torch.no_grad():
+
             if target:
                 self.target_model.eval()
                 res = self.target_model(nn_input)
