@@ -16,7 +16,7 @@ from src.problem.portfolio.environment.portfolio import Portfolio
 from src.util.prioritized_replay_memory import PrioritizedReplayMemory
 
 #  definition of constants
-MEMORY_CAPACITY = 500
+MEMORY_CAPACITY = 50000
 GAMMA = 1
 STEP_EPSILON = 5000.0
 UPDATE_TARGET_FREQUENCY = 500
