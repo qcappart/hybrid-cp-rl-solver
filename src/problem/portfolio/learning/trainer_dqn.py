@@ -209,7 +209,7 @@ class TrainerDQN:
                 cur_set = set_list[episode_last_idx]
                 cur_available = available_vector[episode_last_idx]
 
-            if i + self.n_step < self.instance_size:
+            if i + self.n_step < self.args.n_item:
                 next_set = set_list[i + self.n_step]
                 next_available = available_vector[i + self.n_step]
             else:
