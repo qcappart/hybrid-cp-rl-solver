@@ -59,7 +59,7 @@ class TrainerDQN:
         self.init_memory_counter = 0
 
         if args.n_step == -1: # We go until the end of the episode
-            self.n_step = self.instance_size
+            self.n_step = self.args.n_item
         else:
             self.n_step = self.args.n_step
 
