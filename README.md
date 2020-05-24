@@ -63,7 +63,7 @@ Please refer to the setup instructions available on the [official website](https
 A makefile is available in the root repository. First, modify it by adding your python path. Then, you can compile the project as follows:
 
 ```shell
-make [problem] # e.g. [problem] -> tsptw
+make [problem] # e.g. make tsptw
 ```
 It will create the executable ```solver_tsptw```.
 
