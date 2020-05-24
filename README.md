@@ -89,7 +89,7 @@ selected-models/ppo/tsptw/n-city-20/grid-100-tw-10-100/
 ```
 ## Technologies and tools used
 
-* The code, at the exception of the CP model, is implemented in Python 3.6.
+* The code, at the exception of the CP model, is implemented in Python 3.7.
 * The CP model is implemented in C++ and is solved using [Gecode](https://www.gecode.org/). The reason of this design choice is that there is no CP solver in Python with the requirements we needed. 
 * The neural network architecture as been implemented in Pytorch together with DGL. 
 * The interface between the C++ and Python code is done with [Pybind11](https://github.com/pybind).
