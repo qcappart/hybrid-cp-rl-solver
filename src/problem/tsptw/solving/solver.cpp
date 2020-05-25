@@ -412,6 +412,7 @@ public:
 
 };
 
+/* Class only used for getting search statistics */
 class SimpleSearchTracer : public SearchTracer {
 protected:
   static const char* t2s(EngineType et)  {

@@ -13,7 +13,7 @@ class SolverBinding(object):
     Definition of the c++ and the pytorch model.
     """
 
-    def __init__(self, load_folder, n_city, grid_size, max_tw_gap, max_tw_size, seed, algorithm):
+    def __init__(self, load_folder, n_city, grid_size, max_tw_gap, max_tw_size, seed, rl_algorithm):
         """
         Initialization of the binding
         :param load_folder: folder where the pytorch model (.pth.tar) is saved
@@ -21,15 +21,15 @@ class SolverBinding(object):
         :param grid_size: x-pos/y-pos of cities will be in the range [0, grid_size]
         :param max_tw_gap: maximum time windows gap allowed between the cities
         :param max_tw_size: time windows of cities will be in the range [0, max_tw_size
-        :param seed: seed used for generaing the instance
-        :param algorithm: 'ppo' or 'dqn'
+        :param seed: seed used for generating the instance
+        :param rl_algorithm: 'ppo' or 'dqn'
         """
 
         self.n_city = n_city
         self.grid_size = grid_size
         self.max_tw_gap = max_tw_gap
         self.max_tw_size = max_tw_size
-        self.algorithm = algorithm
+        self.rl_algorithm = rl_algorithm
         self.seed = seed
 
         self.max_dist = np.sqrt(self.grid_size ** 2 + self.grid_size ** 2)
@@ -46,7 +46,7 @@ class SolverBinding(object):
 
         self.input_graph = self.initialize_graph()
 
-        if self.algorithm == "dqn":
+        if self.rl_algorithm == "dqn":
 
             embedding = [(self.n_node_feat, self.n_edge_feat),
                          (self.latent_dim, self.latent_dim),
@@ -57,7 +57,7 @@ class SolverBinding(object):
             self.model.load_state_dict(torch.load(self.model_file, map_location='cpu'), strict=True)
             self.model.eval()
 
-        elif self.algorithm == "ppo":
+        elif self.rl_algorithm == "ppo":
 
             # reproduce the NameSpace of argparse
             args = SimpleNamespace(latent_dim=self.latent_dim, hidden_layer=self.hidden_layer)
@@ -155,11 +155,11 @@ class SolverBinding(object):
         :param last_visited: the last city visited
         :return: the Q-value prediction
         """
-
-        self.update_graph_state(non_fixed_variables, last_visited)
-        y_pred = self.model(self.input_graph, graph_pooling=False)
-        y_pred_tensor = torch.stack([self.input_graph.ndata["n_feat"] for self.input_graph in dgl.unbatch(y_pred)]).squeeze(dim=2)
-        y_pred_list = y_pred_tensor.data.cpu().numpy().flatten()
+        with torch.no_grad():
+            self.update_graph_state(non_fixed_variables, last_visited)
+            y_pred = self.model(self.input_graph, graph_pooling=False)
+            y_pred_tensor = torch.stack([self.input_graph.ndata["n_feat"] for self.input_graph in dgl.unbatch(y_pred)]).squeeze(dim=2)
+            y_pred_list = y_pred_tensor.data.cpu().numpy().flatten()
 
         return y_pred_list
 

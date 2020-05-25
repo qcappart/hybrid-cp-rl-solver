@@ -8,3 +8,12 @@ tsptw:
 		cmake .. -DPYTHON_EXECUTABLE:FILEPATH=$(PYTHON_PATH)  && \
 		make && \
 		mv solver_tsptw ../../../../../.
+
+portfolio:
+	rm -rf src/problem/portfolio/solving/build
+	mkdir src/problem/portfolio/solving/build
+	cd src/problem/portfolio/solving/build && \
+		cmake .. -DPYTHON_EXECUTABLE:FILEPATH=$(PYTHON_PATH)  && \
+		make && \
+		mv solver_portfolio ../../../../../.
+
