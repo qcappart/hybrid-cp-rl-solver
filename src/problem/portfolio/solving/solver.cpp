@@ -364,7 +364,7 @@ public:
 
           if( this->cost().val() > best_cost) {
               os << this->n_item << "," << this->seed << "," << elapsed_seconds << ","
-                 << this->use_cache << "," << this->cost() << endl;
+                 << this->use_cache << "," << this->cost() << "," << this->take_item  << endl;
           }
 
     }
@@ -379,7 +379,8 @@ public:
                << this->seed << ","
                << elapsed_seconds << ","
                << this->use_cache << ","
-               << this->cost().min();
+               << this->cost().min() << ","
+               << this->take_item;
 
         return output.str();
     }
@@ -510,7 +511,7 @@ int main(int argc, char* argv[]) {
         LDS<Portfolio_DP> engine(p,o);
         delete p;
 
-        cout << "nb_cities,seed,time,portfolio_profit" << std::endl;
+        cout << "nb_cities,seed,time,portfolio_profit,solution" << std::endl;
         while(Portfolio_DP* p = engine.next()) {
             FloatVal cur_cost = p->cost().val();
             if(cur_cost > best_cost) {
@@ -549,7 +550,7 @@ int main(int argc, char* argv[]) {
 
         delete p;
 
-        cout << "nb_cities,seed,time,portfolio_profit" << std::endl;
+        cout << "nb_cities,seed,time,portfolio_profit,solution" << std::endl;
         while(Portfolio_DP* p = engine.next()) {
             FloatVal cur_cost = p->cost().val();
             if(cur_cost > best_cost) {
@@ -585,7 +586,7 @@ int main(int argc, char* argv[]) {
         RBS<Portfolio_DP,BAB> engine(p,o);
         delete p;
 
-        cout << "nb_cities,seed,time,portfolio_profit" << std::endl;
+        cout << "nb_cities,seed,time,portfolio_profit,solution" << std::endl;
         while(Portfolio_DP* p = engine.next()) {
             FloatVal cur_cost = p->cost().val();
             if(cur_cost > best_cost) {
