@@ -72,15 +72,21 @@ It will create the executable ```solver_tsptw```.
 ### 1. Training a model
 
 ```shell
-./run_training_ppo_tsptw.sh
+./run_training_ppo_tsptw.sh # for PPO
+./run_training_dqn_tsptw.sh # for DQN
 ```
 ### 2. Solving the problem
 
 ```shell
-./solver_tsptw --model=rl-ilds-dqn --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --d_l=5000 --cache=1 # Solve with ILDS-DQN
-./solver_tsptw --model=rl-bab-dqn --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --d_l=5000 --cache=1 # Solve with ILDS-DQN
-./solver_tsptw --model=rl-rbs-ppo --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --cache=1 --luby=1 --temperature=1 # Solve with RBS-PPO
-./solver_tsptw --model=nearest --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --d_l=5000 # Solve with a nearest neigbour heuristic (no learning)
+# For TSPTW
+./solver_tsptw --model=rl-ilds-dqn --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --d_l=5000 --cache=1 --seed=1  # Solve with ILDS-DQN
+./solver_tsptw --model=rl-bab-dqn --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --d_l=5000 --cache=1 --seed=1 # Solve with ILDS-DQN
+./solver_tsptw --model=rl-rbs-ppo --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --cache=1 --luby=1 --temperature=1 --seed=1 # Solve with RBS-PPO
+./solver_tsptw --model=nearest --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --d_l=5000 --seed=1 # Solve with a nearest neigbour heuristic (no learning)
+
+# For Portfolio
+./solver_portfolio --model=rl-ilds-dqn --time=60000 --size=50 --capacity_ratio=0.5 --lambda_1=1 --lambda_2=5 --lambda_3=5 --lambda_4=5  --discrete_coeffs=0 --cache=1 --seed=1 
+
 ```
 For learning based methods, the model selected by default is the one located in the corresponding ```selected_model/``` repository. For instance:
 
