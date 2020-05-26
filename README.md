@@ -107,7 +107,7 @@ selected-models/ppo/tsptw/n-city-20/grid-100-tw-10-100/
 
 ## Current implemented problems
 
-At the moment, only the TSPTW problem is present in this repository. However, we also have the TSP, the 0/1 Knapsack problem, and a nonlinear portfolio optimization problem available, but in non-cleaned code. If there is demand for these problems, I will clean the code and add them in this repository. Feel free to open an issue for that.
+At the moment, only the travelling salesman problem with time windows and the 4-moments portfolio optimization are present in this repository. However, we also have the TSP, and the 0-1 Knapsack problem available. If there is demand for these problems, I will add them in this repository. Feel free to open an issue for that or if you want to add another problem.
 
 ## Cite
 
