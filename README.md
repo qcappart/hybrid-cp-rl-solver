@@ -13,7 +13,7 @@ Based on a complete search procedure, it will always find the optimal solution i
 In this work, we propose a general and hybrid approach, based on DRL and CP, for solving combinatorial optimization problems. The core of our approach is based on a [Dynamic Programming](https://en.wikipedia.org/wiki/Dynamic_programming) (DP) formulation, that acts as a bridge between both techniques.
 
 In this work, we propose a general and hybrid approach, based on DRL and CP, for solving combinatorial optimization problems formulated as a DP. In the related paper, we show experimentally show that our solver is efficient to solve two challenging problems: the [Travelling Salesman Problem with Time Windows](https://acrogenesis.com/or-tools/documentation/user_manual/manual/tsp/tsptw.html)
-and the 4-moments Portfolio Optimization Problem. 
+and the [4-moments Portfolio Optimization Problem](https://en.wikipedia.org/wiki/Portfolio_optimization), that includes the *means*, *deviations*, *skewnessess*, and *kurtosis* of the assets. 
 Results obtained show that the framework introduced outperforms the stand-alone RL and CP solutions, while being competitive with industrial solvers.
 
 Please be aware that this project is still at research level.
