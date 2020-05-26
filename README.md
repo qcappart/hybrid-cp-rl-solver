@@ -1,7 +1,5 @@
 # Hybrid solver for combinatorial optimization problems
 
-[Dynamic Programming](https://en.wikipedia.org/wiki/Dynamic_programming) (DP), which combines both mathematical modeling and computer programming to solve complex optimization problems, has found applications in numerous fields. The well-known challenge one faces with DP is the state-space explosion problem: the number of generated states grows exponentially, which make DP intractable for solving large problems.
-
 Combinatorial optimization has found applications in numerous fields, from aerospace to transportation planning and economics.
 The goal is to find an optimal solution among a finite set of possibilities. The well-known challenge one faces with combinatorial optimization is the state-space explosion problem: 
 the number of possibilities grows exponentially with the problem size, which makes solving intractable for large problems.
