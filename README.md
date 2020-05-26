@@ -1,15 +1,22 @@
-# Generic solver for dynamic programs (DP)
+# Hybrid solver for combinatorial optimization problems
 
 [Dynamic Programming](https://en.wikipedia.org/wiki/Dynamic_programming) (DP), which combines both mathematical modeling and computer programming to solve complex optimization problems, has found applications in numerous fields. The well-known challenge one faces with DP is the state-space explosion problem: the number of generated states grows exponentially, which make DP intractable for solving large problems.
+
+Combinatorial optimization has found applications in numerous fields, from aerospace to transportation planning and economics.
+The goal is to find an optimal solution among a finite set of possibilities. The well-known challenge one faces with combinatorial optimization is the state-space explosion problem: 
+the number of possibilities grows exponentially with the problem size, which makes solving intractable for large problems.
 
 In the last years, [Deep Reinforcement Learning](https://arxiv.org/abs/1811.12560) (DRL) has shown its promise for designing good heuristics dedicated to solve 
 NP-hard combinatorial optimization problems. However, current approaches have two shortcomings: 
 (1) they mainly focus on the standard travelling salesman problem and they cannot be easily extended to other problems, and (2) they only provide an approximate solution with no systematic ways to improve it or to prove optimality.
 
-In another context, [Constraint Programming](https://en.wikipedia.org/wiki/Constraint_programming) (CP) is a generic tool to solve combinatorial optimization problem.
+In another context, [Constraint Programming](https://en.wikipedia.org/wiki/Constraint_programming) (CP) is a generic tool to solve combinatorial optimization problems.
 Based on a complete search procedure, it will always find the optimal solution if we allow an execution time large enough. A critical design choice, that makes CP non-trivial to use in practice, is the branching decision, directing how the search space is explored.
+In this work, we propose a general and hybrid approach, based on DRL and CP, for solving combinatorial optimization problems. The core of our approach is based on a [Dynamic Programming](https://en.wikipedia.org/wiki/Dynamic_programming) (DP) formulation, that acts as a bridge between both techniques.
 
-In this work, we propose a general and hybrid approach, based on DRL and CP, for solving DPs. In the related paper, we show experimentally show that our solver is efficient to solve two DP problems: the [Travelling Salesman Problem with Time Windows](https://acrogenesis.com/or-tools/documentation/user_manual/manual/tsp/tsptw.html). We show that our framework outperforms the stand-alone RL solution and the standard CP models, while being generic to any DP.
+In this work, we propose a general and hybrid approach, based on DRL and CP, for solving combinatorial optimization problems formulated as a DP. In the related paper, we show experimentally show that our solver is efficient to solve two challenging problems: the [Travelling Salesman Problem with Time Windows](https://acrogenesis.com/or-tools/documentation/user_manual/manual/tsp/tsptw.html)
+and the 4-moments Portfolio Optimization Problem. 
+Results obtained show that the framework introduced outperforms the stand-alone RL and CP solutions, while being competitive with industrial solvers.
 
 Please be aware that this project is still at research level.
 
