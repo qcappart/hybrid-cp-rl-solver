@@ -118,7 +118,7 @@ found within the time limit.
 | RBS-PPO   		|    **928**          	|      2508     	|      4843     | 
 
 ```shell
-./benchmarking/TSPTW_bmk.sh 1 200 60000
+./benchmarking/TSPTW_bmk.sh 1 20 60000
 ./benchmarking/TSPTW_bmk.sh 1 50 60000
 ./benchmarking/TSPTW_bmk.sh 1 100 60000# Arguments : [seed] [n_city] [timeout]
 ```
