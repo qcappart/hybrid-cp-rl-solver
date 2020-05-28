@@ -102,16 +102,9 @@ selected-models/ppo/tsptw/n-city-20/grid-100-tw-10-100/
 
 ## Example of results
 
-The table recaps the best tour obtained for an instance generated with a seed of 0, and a timeout of 60 seconds. 
+The table recaps the solution obtained for an instance generated with a seed of 0, and a timeout of 60 seconds. 
 Bold results indicate that the solver has been able to proof the optimality of the solution and a dash that no solution has been
 found within the time limit.
-You can obtain the values of this table using these command lines.
-
-```shell
-./benchmarking/TSPTW_bmk.sh 1 200 60000
-./benchmarking/TSPTW_bmk.sh 1 50 60000
-./benchmarking/TSPTW_bmk.sh 1 100 60000# Arguments : [seed] [n_city] [timeout]
-```
 
 ### Tour cost for the TSPTW
 
@@ -122,7 +115,13 @@ You can obtain the values of this table using these command lines.
 | CP-nearest  		|    **928**        	|     -     		|      -       	| 
 | BaB-DQN   		|     **928**       	|      **2508**        	|     4750     	| 
 | ILDS-DQN   		|    **928**           	|      2508       	|     -      	| 
-| RBS-PPO   		|    928          	|      2547       	|      4843     | 
+| RBS-PPO   		|    **928**          	|      2508     	|      4843     | 
+
+```shell
+./benchmarking/TSPTW_bmk.sh 1 200 60000
+./benchmarking/TSPTW_bmk.sh 1 50 60000
+./benchmarking/TSPTW_bmk.sh 1 100 60000# Arguments : [seed] [n_city] [timeout]
+```
 
 ### Profit for Portfolio Optimization
 
@@ -132,6 +131,12 @@ You can obtain the values of this table using these command lines.
 | BaB-DQN   |     85%         |      95%       |      95%       | 
 | ILDS-DQN   |     85%         |      95%       |      95%       | 
 | RBS-PPO   |     85%         |      95%       |      95%       | 
+
+```shell
+./benchmarking/TSPTW_bmk.sh 1 200 60000
+./benchmarking/TSPTW_bmk.sh 1 50 60000
+./benchmarking/TSPTW_bmk.sh 1 100 60000# Arguments : [seed] [n_city] [timeout]
+```
 
 ## Technologies and tools used
 
