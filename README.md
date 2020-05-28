@@ -97,31 +97,41 @@ For learning based methods, the model selected by default is the one located in 
 
 ```shell
 selected-models/ppo/tsptw/n-city-20/grid-100-tw-10-100/ 
+
 ```
 
 ## Example of results
 
+The table recaps the best tour obtained for an instance generated with a seed of 0, and a timeout of 60 seconds. 
+Bold results indicate that the solver has been able to proof the optimality of the solution and a dash that no solution has been
+found within the time limit.
+You can obtain the values of this table using these command lines.
+
+```shell
+./benchmarking/TSPTW_bmk.sh 1 200 60000
+./benchmarking/TSPTW_bmk.sh 1 50 60000
+./benchmarking/TSPTW_bmk.sh 1 100 60000# Arguments : [seed] [n_city] [timeout]
+```
+
 ### Tour cost for the TSPTW
 
 | Model name  | 20 cities | 50 cities | 100 cities |
-| ------------------ |---------------- | -------------- | -------------- |
-| DQN   |     85%         |      95%       |       95%       | 
-| PPO  |     85%         |      95%       |      95%       | 
-| CP-nearest  |     85%         |      95%       |      95%       | 
-| BaB-DQN   |     85%         |      95%       |      95%       | 
-| ILDS-DQN   |     85%         |      95%       |      95%       | 
-| RBS-DQN   |     85%         |      95%       |      95%       | 
+| ------------------ 	|---------------- 	| -------------- 	| --------------|
+| DQN  			|    938        	|     -     		|      -       	| 
+| PPO (beam-width=16)   |    928        	|     -    		|      -       	| 
+| CP-nearest  		|    **928**        	|     -     		|      -       	| 
+| BaB-DQN   		|     **928**       	|      **2508**        	|     4750     	| 
+| ILDS-DQN   		|    **928**           	|      2508       	|     -      	| 
+| RBS-PPO   		|    928          	|      2547       	|      4843     | 
 
 ### Profit for Portfolio Optimization
 
 | Model name  | 20 cities | 50 cities | 100 cities |
 | ------------------ |---------------- | -------------- | -------------- |
-| DQN   |     85%         |      95%       |       95%       | 
-| PPO  |     85%         |      95%       |      95%       | 
 | CP-nearest  |     85%         |      95%       |      95%       | 
 | BaB-DQN   |     85%         |      95%       |      95%       | 
 | ILDS-DQN   |     85%         |      95%       |      95%       | 
-| RBS-DQN   |     85%         |      95%       |      95%       | 
+| RBS-PPO   |     85%         |      95%       |      95%       | 
 
 ## Technologies and tools used
 
