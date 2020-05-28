@@ -52,7 +52,7 @@ This repository contains the implementation of the paper (xxx). For each problem
 ### 1. Importing the repository
 
 ```shell
-git clone https://github.com/qcappart/dp-solver.git
+git clone https://github.com/qcappart/hybrid-cp-rl-solver.git
 ```
 ### 2. Setting up the conda virtual environment
 
@@ -85,7 +85,7 @@ It will create the executable ```solver_tsptw```.
 ```shell
 # For TSPTW
 ./solver_tsptw --model=rl-ilds-dqn --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --d_l=5000 --cache=1 --seed=1  # Solve with ILDS-DQN
-./solver_tsptw --model=rl-bab-dqn --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --d_l=5000 --cache=1 --seed=1 # Solve with ILDS-DQN
+./solver_tsptw --model=rl-bab-dqn --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --cache=1 --seed=1 # Solve with ILDS-DQN
 ./solver_tsptw --model=rl-rbs-ppo --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --cache=1 --luby=1 --temperature=1 --seed=1 # Solve with RBS-PPO
 ./solver_tsptw --model=nearest --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --d_l=5000 --seed=1 # Solve with a nearest neigbour heuristic (no learning)
 
@@ -98,6 +98,31 @@ For learning based methods, the model selected by default is the one located in 
 ```shell
 selected-models/ppo/tsptw/n-city-20/grid-100-tw-10-100/ 
 ```
+
+## Example of results
+
+### Tour cost for the TSPTW
+
+| Model name  | 20 cities | 50 cities | 100 cities |
+| ------------------ |---------------- | -------------- | -------------- |
+| DQN   |     85%         |      95%       |       95%       | 
+| PPO  |     85%         |      95%       |      95%       | 
+| CP-nearest  |     85%         |      95%       |      95%       | 
+| BaB-DQN   |     85%         |      95%       |      95%       | 
+| ILDS-DQN   |     85%         |      95%       |      95%       | 
+| RBS-DQN   |     85%         |      95%       |      95%       | 
+
+### Profit for Portfolio Optimization
+
+| Model name  | 20 cities | 50 cities | 100 cities |
+| ------------------ |---------------- | -------------- | -------------- |
+| DQN   |     85%         |      95%       |       95%       | 
+| PPO  |     85%         |      95%       |      95%       | 
+| CP-nearest  |     85%         |      95%       |      95%       | 
+| BaB-DQN   |     85%         |      95%       |      95%       | 
+| ILDS-DQN   |     85%         |      95%       |      95%       | 
+| RBS-DQN   |     85%         |      95%       |      95%       | 
+
 ## Technologies and tools used
 
 * The code, at the exception of the CP model, is implemented in Python 3.7.
