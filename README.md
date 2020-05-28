@@ -118,9 +118,9 @@ found within the time limit.
 | RBS-PPO   		|    **928**          	|      2508     	|      4843     | 
 
 ```shell
-./benchmarking/TSPTW_bmk.sh 1 20 60000
-./benchmarking/TSPTW_bmk.sh 1 50 60000
-./benchmarking/TSPTW_bmk.sh 1 100 60000# Arguments : [seed] [n_city] [timeout]
+./benchmarking/tsptw_bmk.sh 1 20 60000 # Arguments: [seed] [n_city] [timeout - ms]
+./benchmarking/tsptw_bmk.sh 1 50 60000
+./benchmarking/tsptw_bmk.sh 1 100 60000
 ```
 
 ### Profit for Portfolio Optimization
@@ -133,9 +133,9 @@ found within the time limit.
 | RBS-PPO   |     85%         |      95%       |      95%       | 
 
 ```shell
-./benchmarking/TSPTW_bmk.sh 1 200 60000 # Arguments: [seed] [n_city] [timeout]
-./benchmarking/TSPTW_bmk.sh 1 50 60000
-./benchmarking/TSPTW_bmk.sh 1 100 60000
+./benchmarking/portfolio_bmk.sh 1 20 60000 
+./benchmarking/portfolio_bmk.sh 1 50 60000
+./benchmarking/portfolio_bmk.sh 1 100 60000
 ```
 
 ## Technologies and tools used
