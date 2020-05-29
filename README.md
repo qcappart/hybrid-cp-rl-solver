@@ -110,12 +110,12 @@ found within the time limit.
 
 | Model name  | 20 cities | 50 cities | 100 cities |
 | ------------------ 	|---------------- 	| -------------- 	| --------------|
-| DQN  			|    938        	|     -     		|      -       	| 
-| PPO (beam-width=16)   |    928        	|     -    		|      -       	| 
-| CP-nearest  		|    **928**        	|     -     		|      -       	| 
-| BaB-DQN   		|     **928**       	|      **2508**        	|     4750     	| 
-| ILDS-DQN   		|    **928**           	|      2508       	|     -      	| 
-| RBS-PPO   		|    **928**          	|      2508     	|      4843     | 
+| DQN  			|    959        	|     -     		|      -       	| 
+| PPO (beam-width=16)   |    959        	|     -    		|      -       	| 
+| CP-nearest  		|    **959**        	|     -     		|      -       	| 
+| BaB-DQN   		|     **959**       	|      **2432**        	|     4735     	| 
+| ILDS-DQN   		|    **959**           	|      **2432**      	|     -      	| 
+| RBS-PPO   		|    **959**          	|      **2432**     	|      4797     | 
 
 ```shell
 ./benchmarking/tsptw_bmk.sh 1 20 60000 # Arguments: [seed] [n_city] [timeout - ms]
@@ -125,17 +125,18 @@ found within the time limit.
 
 ### Profit for Portfolio Optimization
 
-| Model name  | 20 cities | 50 cities | 100 cities |
-| ------------------ |---------------- | -------------- | -------------- |
-| CP-nearest  |     85%         |      95%       |      95%       | 
-| BaB-DQN   |     85%         |      95%       |      95%       | 
-| ILDS-DQN   |     85%         |      95%       |      95%       | 
-| RBS-PPO   |     85%         |      95%       |      95%       | 
+| Model name  		| 20 items 	    | 50 items       	| 100 items      |
+| ------------------ 	|----------------   | -------------- 	| -------------- |
+| DQN  	  		|     247.40        |      1176.94     |      2223.09      | 
+| PPO (beam-width=16)  	|     264.49        |      1257.42      |      2242.067      | 
+| BaB-DQN   		|     **273.04**    |      1228.03      |      2224.44      | 
+| ILDS-DQN   		|     273.04        |      1201.53      |      2235.89       | 
+| RBS-PPO   		|     267.05       |      1265.50      |      2258.65       | 
 
 ```shell
-./benchmarking/portfolio_bmk.sh 1 20 60000 
-./benchmarking/portfolio_bmk.sh 1 50 60000
-./benchmarking/portfolio_bmk.sh 1 100 60000
+./benchmarking/portfolio_bmk.sh 0 20 60000 # Arguments: [seed] [n_item] [timeout - ms]
+./benchmarking/portfolio_bmk.sh 0 50 60000
+./benchmarking/portfolio_bmk.sh 0 100 60000
 ```
 
 ## Technologies and tools used
