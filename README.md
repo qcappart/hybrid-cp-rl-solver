@@ -27,7 +27,7 @@ This repository contains the implementation of the paper (xxx). For each problem
 *  A RL training algorithm based on Deep Q-Learning (DQN).
 *  A RL training algorithm based on Proximal Policy Optimization (PPO).
 *  The models, and the hyperparameters used, that we trained.
-*  Three CP solving algorithms leveraging the learned models: Depth-First Branch-and_bound (BaB), Iterative Limited Discrepancy Search (I-LDS), and Restart Based Search (RBS)
+*  Three CP solving algorithms leveraging the learned models: Depth-First Branch-and_bound (BaB), Iterative Limited Discrepancy Search (ILDS), and Restart Based Search (RBS)
 *  A random instance generators for training the model and evaluating the solver.
 
 ```bash
