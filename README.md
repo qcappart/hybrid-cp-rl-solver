@@ -42,6 +42,7 @@ This repository contains the implementation of the paper (xxx). For each problem
         ├── util/  #  utilitary code (as the memory replay)
 	├── problem/  # problems that we have implemented
 		└── tsptw/ 
+		      ├── baseline/ # methods that are used for comparison
 		      ├── environment/ # the generator, and the DP model, acting also as the RL environment
 		      ├── training/  # PPO and DQN training algorithms
 		      ├── solving/  # CP model and solving algorithm
