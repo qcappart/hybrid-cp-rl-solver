@@ -2,7 +2,9 @@
 #include <random>
 #include <math.h>
 #include <ctime>
-
+#include <iostream>
+#include <iomanip>
+#include <sstream>
 
 #include <gecode/driver.hh>
 #include <gecode/int.hh>
@@ -26,6 +28,8 @@ namespace py = pybind11;
 std::chrono::time_point<std::chrono::system_clock> start;
 
 std::map<std::tuple<int, int>, std::vector<double>> predict_cache;
+
+
 
 Rnd r(1U);
 auto t = time(0);
@@ -105,8 +109,11 @@ public:
             mode = "ppo";
         }
 
+        std::stringstream stream;
+        stream << std::fixed << std::setprecision(1) << opt.capacity_ratio;
+
         string model_folder = "./selected-models/" + mode + "/portfolio/n-item-" + std::to_string(this->n_item) +
-                              "/capacity-ratio-0.5" + //std::to_string(opt.capacity_ratio) +
+                              "/capacity-ratio-" + stream.str() +
                               "/moment-factors-" + std::to_string(opt.lambda_1) + "-" + std::to_string(opt.lambda_2) + "-" +
                               std::to_string(opt.lambda_3)+ "-" + std::to_string(opt.lambda_4);
 
@@ -400,47 +407,6 @@ public:
 
 };
 
-/* Class only used for getting search statistics */
-class SimpleSearchTracer : public SearchTracer {
-protected:
-  static const char* t2s(EngineType et)  {
-    switch (et) {
-    case EngineType::DFS: return "DFS";
-    case EngineType::BAB: return "BAB";
-    case EngineType::LDS: return "LDS";
-    case EngineType::RBS: return "RBS";
-    case EngineType::PBS: return "PBS";
-    case EngineType::AOE: return "AOE";
-    }
-  }
-public:
-
-  int n_node;
-
-  SimpleSearchTracer(void) {
-    this->n_node = 0;
-  }
-  // init
-  virtual void init(void) {
-  }
-  // node
-  virtual void node(const EdgeInfo& ei, const NodeInfo& ni) {
-    this->n_node  = this->n_node + 1;
-  }
-  // round
-  virtual void round(unsigned int eid) {
-    //std::cout << "accumulated number of nodes: " << this->n_node  << std::endl;
-  }
-  // skip
-  virtual void skip(const EdgeInfo& ei) {
-
-  }
-  // done
-  virtual void done(void) {
-    std::cout << "total node: " << this->n_node  << std::endl;
-  }
-  virtual ~SimpleSearchTracer(void) {}
-};
 
 
 Portfolio_DP::ModelType stringToModel (std::string const& inString) {
@@ -496,14 +462,12 @@ int main(int argc, char* argv[]) {
     opt.d_l(result["d_l"].as<int>());
 
     Portfolio_DP* p = new Portfolio_DP(opt);
-    SimpleSearchTracer* tracer = new SimpleSearchTracer();
 
     if(opt.model() == Portfolio_DP::RL_DQN) {
         Search::Options o;
         Search::TimeStop ts(opt.time());
         o.stop = &ts;
         o.d_l = opt.d_l();
-        o.tracer = tracer;
 
         Search::Cutoff* c = Search::Cutoff::luby(result["luby"].as<int>());
         o.cutoff = c;
@@ -522,16 +486,12 @@ int main(int argc, char* argv[]) {
             }
             delete p;
         }
-        std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
-        int elapsed_seconds = std::chrono::duration_cast<std::chrono::milliseconds> (end-start).count();
-        cout << elapsed_seconds << "ms" << endl;
-        cout << "peak-depth:" << engine.statistics().depth << endl;
-
+        cout << "BEST SOLUTION: " << best_cost << endl;
         if(engine.stopped()){
-            cout << "TIMEOUT" << endl;
+            cout << "TIMEOUT - OPTIMALITY PROOF NOT REACHED" << endl;
         }
         else{
-            cout << "FOUND OPTIMAL" << endl;
+            cout << "SEARCH COMPLETED - SOLUTION FOUND IS OPTIMAL" << endl;
         }
     }
 
@@ -541,7 +501,7 @@ int main(int argc, char* argv[]) {
         Search::TimeStop ts(opt.time());
         o.stop = &ts;
         o.d_l = opt.d_l();
-        o.tracer = tracer;
+
 
         Search::Cutoff* c = Search::Cutoff::luby(result["luby"].as<int>());
         o.cutoff = c;
@@ -561,16 +521,12 @@ int main(int argc, char* argv[]) {
             }
             delete p;
         }
-        std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
-        int elapsed_seconds = std::chrono::duration_cast<std::chrono::milliseconds> (end-start).count();
-        cout << elapsed_seconds << "ms" << endl;
-        cout << "peak-depth:" << engine.statistics().depth << endl;
-
+        cout << "BEST SOLUTION: " << best_cost << endl;
         if(engine.stopped()){
-            cout << "TIMEOUT" << endl;
+            cout << "TIMEOUT - OPTIMALITY PROOF NOT REACHED" << endl;
         }
         else{
-            cout << "FOUND OPTIMAL" << endl;
+            cout << "SEARCH COMPLETED - SOLUTION FOUND IS OPTIMAL" << endl;
         }
     }
 
@@ -581,7 +537,6 @@ int main(int argc, char* argv[]) {
 
         Search::Cutoff* c = Search::Cutoff::luby(result["luby"].as<int>());
         o.cutoff = c;
-        o.tracer = tracer;
 
         RBS<Portfolio_DP,BAB> engine(p,o);
         delete p;
@@ -596,6 +551,13 @@ int main(int argc, char* argv[]) {
                 cout << p->to_string() << endl;
             }
             delete p;
+        }
+         cout << "BEST SOLUTION: " << best_cost << endl;
+        if(engine.stopped()){
+            cout << "TIMEOUT - OPTIMALITY PROOF NOT REACHED" << endl;
+        }
+        else{
+            cout << "SEARCH COMPLETED - SOLUTION FOUND IS OPTIMAL" << endl;
         }
     }
 

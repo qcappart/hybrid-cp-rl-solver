@@ -405,48 +405,11 @@ public:
         std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
         int elapsed_seconds = std::chrono::duration_cast<std::chrono::milliseconds> (end-start).count();
         std::stringstream output;
-        output << this->m << "," << this->seed << "," << elapsed_seconds << "," << tour_cost;
+        output << this->m << "," << this->seed << "," << elapsed_seconds << "," << this->tour_cost << "," << this->travel_to;
 
         return output.str();
     }
 
-};
-
-/* Class only used for getting search statistics */
-class SimpleSearchTracer : public SearchTracer {
-protected:
-  static const char* t2s(EngineType et)  {
-    switch (et) {
-    case EngineType::DFS: return "DFS";
-    case EngineType::BAB: return "BAB";
-    case EngineType::LDS: return "LDS";
-    case EngineType::RBS: return "RBS";
-    case EngineType::PBS: return "PBS";
-    case EngineType::AOE: return "AOE";
-    }
-  }
-public:
-
-  int n_node;
-
-  SimpleSearchTracer(void) {
-    this->n_node = 0;
-  }
-  virtual void init(void) {
-  }
-  virtual void node(const EdgeInfo& ei, const NodeInfo& ni) {
-    this->n_node  = this->n_node + 1;
-  }
-  virtual void round(unsigned int eid) {
-    //std::cout << "accumulated number of nodes: " << this->n_node  << std::endl;
-  }
-  virtual void skip(const EdgeInfo& ei) {
-
-  }
-  virtual void done(void) {
-    std::cout << "total node: " << this->n_node  << std::endl;
-  }
-  virtual ~SimpleSearchTracer(void) {}
 };
 
 
@@ -500,7 +463,6 @@ int main(int argc, char* argv[]) {
     opt.time(result["time"].as<int>());
     opt.d_l(result["d_l"].as<int>());
 
-    SimpleSearchTracer* tracer = new SimpleSearchTracer();
 
     if(opt.model() == TSPTW_DP::RL_DQN || opt.model() == TSPTW_DP::NN_HEURISTIC) {
         Search::Options o;
@@ -508,30 +470,24 @@ int main(int argc, char* argv[]) {
         o.stop = &ts;
         TSPTW_DP* p = new TSPTW_DP(opt);
         o.d_l = opt.d_l();
-        o.tracer = tracer;
         LDS<TSPTW_DP> engine(p, o);
         delete p;
-        cout << "nb_cities,seed,time,tour_cost,depth" << std::endl;
+        cout << "n_city,seed,time,tour_cost" << std::endl;
         while(TSPTW_DP* p = engine.next()) {
             int cur_cost = p->cost().val();
             if(cur_cost < best_cost) {
                 best_cost = cur_cost;
                 int depth = engine.statistics().depth;
-                cout << p->to_string() << "," << depth << endl ;
+                cout << p->to_string()  << endl ;
             }
             delete p;
         }
-
-        std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
-        int elapsed_seconds = std::chrono::duration_cast<std::chrono::milliseconds> (end-start).count();
-        cout << elapsed_seconds << "ms" << endl;
-        cout << "max-depth reached: " << engine.statistics().depth << endl;
-
+        cout << "BEST SOLUTION: " << best_cost << endl;
         if(engine.stopped()){
-            cout << "TIMEOUT" << endl;
+            cout << "TIMEOUT - OPTIMALITY PROOF NOT REACHED" << endl;
         }
         else{
-            cout << "FOUND OPTIMAL" << endl;
+            cout << "SEARCH COMPLETED - SOLUTION FOUND IS OPTIMAL" << endl;
         }
     }
 
@@ -542,30 +498,24 @@ int main(int argc, char* argv[]) {
         o.stop = &ts;
         TSPTW_DP* p = new TSPTW_DP(opt);
         o.d_l = opt.d_l();
-        o.tracer = tracer;
         BAB<TSPTW_DP> engine(p, o);
         delete p;
-        cout << "nb_cities,seed,time,tour_cost,depth" << std::endl;
+        cout << "n_city,seed,time,tour_cost" << std::endl;
         while(TSPTW_DP* p = engine.next()) {
             int cur_cost = p->cost().val();
             if(cur_cost < best_cost) {
                 best_cost = cur_cost;
                 int depth = engine.statistics().depth;
-                cout << p->to_string() << "," << depth << endl ;
+                cout << p->to_string() << endl ;
             }
             delete p;
         }
-
-        std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
-        int elapsed_seconds = std::chrono::duration_cast<std::chrono::milliseconds> (end-start).count();
-        cout << elapsed_seconds << "ms" << endl;
-        cout << "max-depth reached: " << engine.statistics().depth << endl;
-
+        cout << "BEST SOLUTION: " << best_cost << endl;
         if(engine.stopped()){
-            cout << "TIMEOUT" << endl;
+            cout << "TIMEOUT - OPTIMALITY PROOF NOT REACHED" << endl;
         }
         else{
-            cout << "FOUND OPTIMAL" << endl;
+            cout << "SEARCH COMPLETED - SOLUTION FOUND IS OPTIMAL" << endl;
         }
     }
 
@@ -579,30 +529,26 @@ int main(int argc, char* argv[]) {
 
         Search::Cutoff* c = Search::Cutoff::luby(result["luby"].as<int>());
         o.cutoff = c;
-        o.tracer = tracer;
         RBS<TSPTW_DP,BAB> engine(p,o);
         delete p;
 
-        cout << "nb_cities,seed,time,tour_cost,num_nodes,num_fails" << std::endl;
+        cout << "n_city,seed,time,tour_cost" << std::endl;
         while(TSPTW_DP* p = engine.next()) {
             int cur_cost = p->cost().val();
             if(cur_cost < best_cost) {
                 best_cost = cur_cost;
                 int num_nodes = engine.statistics().node;
                 int num_fail = engine.statistics().fail;
-                cout << p->to_string() << "," << num_nodes << "," << num_fail << endl ;
+                cout << p->to_string() << endl ;
             }
             delete p;
         }
-        std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
-        int elapsed_seconds = std::chrono::duration_cast<std::chrono::milliseconds> (end-start).count();
-        cout << elapsed_seconds << "ms" << endl;
-
+        cout << "BEST SOLUTION: " << best_cost << endl;
         if(engine.stopped()){
-            cout << "TIMEOUT" << endl;
+            cout << "TIMEOUT - OPTIMALITY PROOF NOT REACHED" << endl;
         }
         else{
-            cout << "FOUND OPTIMAL" << endl;
+            cout << "SEARCH COMPLETED - SOLUTION FOUND IS OPTIMAL" << endl;
         }
     }
 
