@@ -27,7 +27,7 @@ This repository contains the implementation of the paper (xxx). For each problem
 *  A RL training algorithm based on Deep Q-Learning (DQN).
 *  A RL training algorithm based on Proximal Policy Optimization (PPO).
 *  The models, and the hyperparameters used, that we trained.
-*  Three CP solving algorithms leveraging the learned models: Depth-First Branch-and_bound (BaB), Iterative Limited Discrepancy Search (I-LDS), and Restart Based Search (RBS)
+*  Three CP solving algorithms leveraging the learned models: Depth-First Branch-and_bound (BaB), Iterative Limited Discrepancy Search (ILDS), and Restart Based Search (RBS)
 *  A random instance generators for training the model and evaluating the solver.
 
 ```bash
@@ -42,10 +42,11 @@ This repository contains the implementation of the paper (xxx). For each problem
         ├── util/  #  utilitary code (as the memory replay)
 	├── problem/  # problems that we have implemented
 		└── tsptw/ 
+		      ├── baseline/ # methods that are used for comparison
 		      ├── environment/ # the generator, and the DP model, acting also as the RL environment
 		      ├── training/  # PPO and DQN training algorithms
 		      ├── solving/  # CP model and solving algorithm
-		├── ...      
+		├── portfolio/    
 ```
 ## Installation instructions
 
@@ -97,31 +98,47 @@ For learning based methods, the model selected by default is the one located in 
 
 ```shell
 selected-models/ppo/tsptw/n-city-20/grid-100-tw-10-100/ 
+
 ```
 
 ## Example of results
 
+The table recaps the solution obtained for an instance generated with a seed of 0, and a timeout of 60 seconds. 
+Bold results indicate that the solver has been able to proof the optimality of the solution and a dash that no solution has been
+found within the time limit.
+
 ### Tour cost for the TSPTW
 
 | Model name  | 20 cities | 50 cities | 100 cities |
-| ------------------ |---------------- | -------------- | -------------- |
-| DQN   |     85%         |      95%       |       95%       | 
-| PPO  |     85%         |      95%       |      95%       | 
-| CP-nearest  |     85%         |      95%       |      95%       | 
-| BaB-DQN   |     85%         |      95%       |      95%       | 
-| ILDS-DQN   |     85%         |      95%       |      95%       | 
-| RBS-DQN   |     85%         |      95%       |      95%       | 
+| ------------------ 	|---------------- 	| -------------- 	| --------------|
+| DQN  			|    959        	|     -     		|      -       	| 
+| PPO (beam-width=16)   |    959        	|     -    		|      -       	| 
+| CP-nearest  		|    **959**        	|     -     		|      -       	| 
+| BaB-DQN   		|     **959**       	|      **2432**        	|     4735     	| 
+| ILDS-DQN   		|    **959**           	|      **2432**      	|     -      	| 
+| RBS-PPO   		|    **959**          	|      **2432**     	|      4797     | 
+
+```shell
+./benchmarking/tsptw_bmk.sh 0 20 60000 # Arguments: [seed] [n_city] [timeout - ms]
+./benchmarking/tsptw_bmk.sh 0 50 60000
+./benchmarking/tsptw_bmk.sh 0 100 60000
+```
 
 ### Profit for Portfolio Optimization
 
-| Model name  | 20 cities | 50 cities | 100 cities |
-| ------------------ |---------------- | -------------- | -------------- |
-| DQN   |     85%         |      95%       |       95%       | 
-| PPO  |     85%         |      95%       |      95%       | 
-| CP-nearest  |     85%         |      95%       |      95%       | 
-| BaB-DQN   |     85%         |      95%       |      95%       | 
-| ILDS-DQN   |     85%         |      95%       |      95%       | 
-| RBS-DQN   |     85%         |      95%       |      95%       | 
+| Model name  		| 20 items 	    | 50 items       	| 100 items      |
+| ------------------ 	|----------------   | -------------- 	| -------------- |
+| DQN  	  		|     247.40        |      1176.94     |      2223.09      | 
+| PPO (beam-width=16)  	|     264.49        |      1257.42      |      2242.067      | 
+| BaB-DQN   		|     **273.04**    |      1228.03      |      2224.44      | 
+| ILDS-DQN   		|     273.04        |      1201.53      |      2235.89       | 
+| RBS-PPO   		|     267.05       |      1265.50      |      2258.65       | 
+
+```shell
+./benchmarking/portfolio_bmk.sh 0 20 60000 # Arguments: [seed] [n_item] [timeout - ms]
+./benchmarking/portfolio_bmk.sh 0 50 60000
+./benchmarking/portfolio_bmk.sh 0 100 60000
+```
 
 ## Technologies and tools used
 
