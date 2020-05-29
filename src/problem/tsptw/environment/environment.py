@@ -29,6 +29,7 @@ class Environment:
 
         self.max_dist = np.sqrt(self.grid_size ** 2 + self.grid_size ** 2)
         self.max_tw_value = (self.instance.n_city - 1) * (self.max_tw_size + self.max_tw_gap)
+        self.ub_cost = self.max_dist * self.instance.n_city
 
         self.edge_feat_tensor = self.instance.get_edge_feat_tensor(self.max_dist)
 
@@ -87,15 +88,12 @@ class Environment:
         new_state = cur_state.step(action)
 
         # see the related paper for the reward definition
-        reward = 2 * self.max_dist - self.instance.travel_time[cur_state.last_visited][new_state.last_visited]
+        reward = self.ub_cost - self.instance.travel_time[cur_state.last_visited][new_state.last_visited]
 
         if new_state.is_done():
             #  cost of going back to the starting city (always 0)
             reward = reward - self.instance.travel_time[new_state.last_visited][0]
 
-        if new_state.is_success():
-            #  additional reward of finding a feasible solution
-            reward = reward + 2 * self.max_dist
 
         reward = reward * self.reward_scaling
 

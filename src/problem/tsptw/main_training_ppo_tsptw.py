@@ -3,7 +3,11 @@ import sys
 import os
 import argparse
 
+sys.path.append(os.path.join(sys.path[0],'..','..','..'))
+
 from src.problem.tsptw.learning.trainer_ppo import TrainerPPO
+
+
 
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 

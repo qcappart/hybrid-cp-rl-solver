@@ -36,7 +36,7 @@ then
     mkdir -p $save_dir
 fi
 
-python main_training_ppo_portfolio.py \
+python src/problem/portfolio/main_training_ppo_portfolio.py \
     --seed $seed  \
     --n_item $n_item  \
     --capacity_ratio $capacity_ratio \

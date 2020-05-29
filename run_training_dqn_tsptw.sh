@@ -32,7 +32,7 @@ then
     mkdir -p $save_dir
 fi
 
-python main_training_dqn_tsptw.py \
+python src/problem/tsptw/main_training_dqn_tsptw.py \
     --seed $seed  \
     --n_city $n_city  \
     --grid_size $grid_size \
