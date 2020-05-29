@@ -118,9 +118,9 @@ found within the time limit.
 | RBS-PPO   		|    **959**          	|      **2432**     	|      4797     | 
 
 ```shell
-./benchmarking/tsptw_bmk.sh 1 20 60000 # Arguments: [seed] [n_city] [timeout - ms]
-./benchmarking/tsptw_bmk.sh 1 50 60000
-./benchmarking/tsptw_bmk.sh 1 100 60000
+./benchmarking/tsptw_bmk.sh 0 20 60000 # Arguments: [seed] [n_city] [timeout - ms]
+./benchmarking/tsptw_bmk.sh 0 50 60000
+./benchmarking/tsptw_bmk.sh 0 100 60000
 ```
 
 ### Profit for Portfolio Optimization
