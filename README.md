@@ -46,7 +46,7 @@ This repository contains the implementation of the paper (xxx). For each problem
 		      ├── environment/ # the generator, and the DP model, acting also as the RL environment
 		      ├── training/  # PPO and DQN training algorithms
 		      ├── solving/  # CP model and solving algorithm
-		├── ...      
+		├── portfolio/    
 ```
 ## Installation instructions
 
