@@ -1,4 +1,4 @@
-# Hybrid solver for combinatorial optimization problems
+# Hybrid solving process for combinatorial optimization problems
 
 Combinatorial optimization has found applications in numerous fields, from aerospace to transportation planning and economics.
 The goal is to find an optimal solution among a finite set of possibilities. The well-known challenge one faces with combinatorial optimization is the state-space explosion problem: 
@@ -33,7 +33,6 @@ This repository contains the implementation of the paper (xxx). For each problem
 ```bash
 .
 ├── conda_env.yml  # configuration file for the conda environment
-├── main_training_x_y.py  # main file for training a model for the problem y using algorithm x
 ├── run_training_x_y.sh  # script for running the training. It is where you have to enter the parameters 
 ├── trained_models/  # directory where the models that you train will be saved
 ├── selected_models/  # models that we used for our experiments
@@ -42,6 +41,7 @@ This repository contains the implementation of the paper (xxx). For each problem
         ├── util/  #  utilitary code (as the memory replay)
 	├── problem/  # problems that we have implemented
 		└── tsptw/ 
+		      ├── main_training_x_y.py  # main file for training a model for the problem y using algorithm x
 		      ├── baseline/ # methods that are used for comparison
 		      ├── environment/ # the generator, and the DP model, acting also as the RL environment
 		      ├── training/  # PPO and DQN training algorithms
@@ -129,7 +129,7 @@ found within the time limit.
 | Model name  		| 20 items 	    | 50 items       	| 100 items      |
 | ------------------ 	|----------------   | -------------- 	| -------------- |
 | DQN  	  		|     247.40        |      1176.94     |      2223.09      | 
-| PPO (beam-width=16)  	|     264.49        |      1257.42      |      2242.067      | 
+| PPO (beam-width=16)  	|     264.49        |      1257.42      |      2242.67      | 
 | BaB-DQN   		|     **273.04**    |      1228.03      |      2224.44      | 
 | ILDS-DQN   		|     273.04        |      1201.53      |      2235.89       | 
 | RBS-PPO   		|     267.05       |      1265.50      |      2258.65       | 
