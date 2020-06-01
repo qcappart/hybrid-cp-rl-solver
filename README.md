@@ -1,4 +1,4 @@
-# Hybrid solver for combinatorial optimization problems
+# Hybrid solving process for combinatorial optimization problems
 
 Combinatorial optimization has found applications in numerous fields, from aerospace to transportation planning and economics.
 The goal is to find an optimal solution among a finite set of possibilities. The well-known challenge one faces with combinatorial optimization is the state-space explosion problem: 
