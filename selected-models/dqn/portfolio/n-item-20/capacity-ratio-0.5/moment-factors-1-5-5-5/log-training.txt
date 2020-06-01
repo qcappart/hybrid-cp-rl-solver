@@ -91,12 +91,6 @@
 [DATA] 5300 4927.98 229.9929823898322 0.10420000000000001 0.9525638550519944 2
 [DATA] 5400 5014.28 207.7801687605992 0.10950000000000001 0.9469831466674805 2
 [DATA] 5500 5098.4 234.09418753779013 0.10029999999999999 0.94419277 2
-/app/src/learning/trainer_DQN_portfolio.py:533: RuntimeWarning: invalid value encountered in true_divide
-  logits = logits / div
-/app/src/learning/trainer_DQN_portfolio.py:549: RuntimeWarning: invalid value encountered in less
-  action_idx = np.random.choice(np.arange(len(probabilities)), p=probabilities)
-/opt/conda/envs/learning-cop/lib/python3.6/site-packages/numpy/core/fromnumeric.py:83: RuntimeWarning: invalid value encountered in reduce
-  return ufunc.reduce(obj, axis, dtype, out, **passkwargs)
 [DATA] 5600 5187.74 270.74181950393364 0.113 0.94419277 2
 [DATA] 5700 5277.45 254.40264572972734 0.1046 0.94419277 2
 [DATA] 5800 5367.1 274.06668465137386 0.09809999999999998 0.94419277 2
