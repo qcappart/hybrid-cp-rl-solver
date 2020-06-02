@@ -76,13 +76,13 @@ It will create the executable ```solver_tsptw```.
 ## Basic use
 
 ### 1. Training a model
-
+(Does not require Gecode)
 ```shell
 ./run_training_ppo_tsptw.sh # for PPO
 ./run_training_dqn_tsptw.sh # for DQN
 ```
 ### 2. Solving the problem
-
+(Require Gecode)
 ```shell
 # For TSPTW
 ./solver_tsptw --model=rl-ilds-dqn --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --d_l=5000 --cache=1 --seed=1  # Solve with ILDS-DQN
