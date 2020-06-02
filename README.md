@@ -86,7 +86,7 @@ It will create the executable ```solver_tsptw```.
 ```shell
 # For TSPTW
 ./solver_tsptw --model=rl-ilds-dqn --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --d_l=5000 --cache=1 --seed=1  # Solve with ILDS-DQN
-./solver_tsptw --model=rl-bab-dqn --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --cache=1 --seed=1 # Solve with ILDS-DQN
+./solver_tsptw --model=rl-bab-dqn --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --cache=1 --seed=1 # Solve with BaB-DQN
 ./solver_tsptw --model=rl-rbs-ppo --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --cache=1 --luby=1 --temperature=1 --seed=1 # Solve with RBS-PPO
 ./solver_tsptw --model=nearest --time=60000 --size=20 --grid_size=100 --max_tw_size=100 --max_tw_gap=10 --d_l=5000 --seed=1 # Solve with a nearest neigbour heuristic (no learning)
 
