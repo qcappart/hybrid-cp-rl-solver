@@ -20,7 +20,7 @@ Please be aware that this project is still at research level.
 
 ## Content of the repository
 
-This repository contains the implementation of the paper (xxx). For each problem that we have considered, you can find:
+For each problem that we have considered, you can find:
 
 * A DP model serving as a basis for the RL environment and the CP model.
 *  The RL enviroment and the CP model. 
@@ -157,7 +157,7 @@ At the moment, only the travelling salesman problem with time windows and the 4-
 Please use this reference:
 
 ```latex
-TODO
+Hidden for the review
 ```
 
 ## Licence
