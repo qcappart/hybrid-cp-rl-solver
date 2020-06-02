@@ -53,7 +53,7 @@ For each problem that we have considered, you can find:
 ### 1. Importing the repository
 
 ```shell
-git clone https://github.com/qcappart/hybrid-cp-rl-solver.git
+Command hidden for the review
 ```
 ### 2. Setting up the conda virtual environment
 
