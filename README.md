@@ -53,7 +53,7 @@ For each problem that we have considered, you can find:
 ### 1. Importing the repository
 
 ```shell
-Command hidden for the review
+git clone git@github.com:qcappart/hybrid-cp-rl-solver.git
 ```
 ### 2. Setting up the conda virtual environment
 
@@ -157,7 +157,14 @@ At the moment, only the travelling salesman problem with time windows and the 4-
 Please use this reference:
 
 ```latex
-Hidden for the review
+@misc{cappart2020combining,
+    title={Combining Reinforcement Learning and Constraint Programming for Combinatorial Optimization},
+    author={Quentin Cappart and Thierry Moisan and Louis-Martin Rousseau and Isabeau Prémont-Schwarz and Andre Cire},
+    year={2020},
+    eprint={2006.01610},
+    archivePrefix={arXiv},
+    primaryClass={cs.AI}
+}
 ```
 
 ## Licence
