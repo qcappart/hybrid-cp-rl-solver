@@ -1,5 +1,5 @@
 
-PYTHON_PATH=~/anaconda3/envs/dp-solver-env/bin/python3
+PYTHON_PATH="$(CONDA_PREFIX)/bin/python3"
 
 tsptw:
 	rm -rf src/problem/tsptw/solving/build
