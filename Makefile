@@ -1,19 +1,15 @@
 
-PYTHON_PATH=~/opt/miniconda3/envs/dp-solver-env/bin/python3.7
+PYTHON_PATH=~/anaconda3/envs/dp-solver-env/bin/python3
 
 tsptw:
 	rm -rf src/problem/tsptw/solving/build
-	mkdir src/problem/tsptw/solving/build
-	cd src/problem/tsptw/solving/build && \
-		cmake .. -DPYTHON_EXECUTABLE:FILEPATH=$(PYTHON_PATH)  && \
-		make && \
-		mv solver_tsptw ../../../../../.
+	cmake -Hsrc/problem/tsptw/solving -Bsrc/problem/tsptw/solving/build -DPYTHON_EXECUTABLE:FILEPATH=$(PYTHON_PATH) -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING="Release" -G "Unix Makefiles" -DPYTHON_EXECUTABLE:FILEPATH=$(PYTHON_PATH)
+	cmake --build src/problem/tsptw/solving/build --config Release --target all -- -j $(nproc) VERBOSE=1
+	mv src/problem/tsptw/solving/build/solver_tsptw ./
 
 portfolio:
 	rm -rf src/problem/portfolio/solving/build
-	mkdir src/problem/portfolio/solving/build
-	cd src/problem/portfolio/solving/build && \
-		cmake .. -DPYTHON_EXECUTABLE:FILEPATH=$(PYTHON_PATH)  && \
-		make && \
-		mv solver_portfolio ../../../../../.
+	cmake -Hsrc/problem/portfolio/solving -Bsrc/problem/portfolio/solving/build -DPYTHON_EXECUTABLE:FILEPATH=$(PYTHON_PATH) -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING="Release" -G "Unix Makefiles" -DPYTHON_EXECUTABLE:FILEPATH=$(PYTHON_PATH)
+	cmake --build src/problem/portfolio/solving/build --config Release --target all -- -j $(nproc) VERBOSE=1
+	mv src/problem/portfolio/solving/build/solver_portfolio ./
 
