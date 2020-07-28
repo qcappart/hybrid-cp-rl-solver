@@ -153,15 +153,10 @@ class GATNetwork(nn.Module):
         :return: prediction of the GAT network
         """
 
-        for l, layer in enumerate(self.embedding_layer[:-1]):
+        for l, layer in enumerate(self.embedding_layer):
             g = layer(g)
             g.ndata["n_feat"] = torch.relu(g.ndata["n_feat"])
             g.edata["e_feat"] = torch.relu(g.edata["e_feat"])
-
-        last_layer = self.embedding_layer[-1]
-        g = last_layer(g)
-        g.ndata["n_feat"] = torch.relu(g.ndata["n_feat"])
-        g.edata["e_feat"] = torch.relu(g.edata["e_feat"])
 
         if graph_pooling:
             out = dgl.max_nodes(g, "n_feat")
