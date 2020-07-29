@@ -60,6 +60,7 @@ git clone https://github.com/qcappart/hybrid-cp-rl-solver.git
 ```shell
 conda env create -f conda_env.yml 
 ```
+Note: install a [DGL version](https://www.dgl.ai/pages/start.html) compatible with your CUDA installation.
 ### 3. Building Gecode
 
 Please refer to the setup instructions available on the [official website](https://www.gecode.org/).
